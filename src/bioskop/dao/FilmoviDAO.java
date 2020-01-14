@@ -51,7 +51,7 @@ public class FilmoviDAO {
 		
 		
 		
-		
+		System.out.println(filmovi);
 		return filmovi;
 	}
 

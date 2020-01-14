@@ -41,16 +41,17 @@ public class FilmoviServlet extends HttpServlet {
 				
 				
 				//response.getWriter().write(om.writeValueAsString(film));
-				response.getWriter().append(om.writeValueAsString(film));
+			//	response.getWriter().append(om.writeValueAsString(film));
 			//	response.getOutputStream().wr
 			//	response.getWriter().close();
 				
 				
 				
 			}
+			response.getWriter().write(om.writeValueAsString(filmovi));
 			response.getWriter().close();
 //			response.addHeader("Access-Control-Allow-Origin", "*");
-//			response.setHeader("Access-Control-Allow-Origin", "*");
+		
 			System.out.println("try izvrsen");
 
 		} catch (Exception e) {
