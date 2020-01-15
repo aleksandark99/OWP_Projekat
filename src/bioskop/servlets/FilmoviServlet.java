@@ -25,7 +25,7 @@ public class FilmoviServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Pogodjen servlet");
+		System.out.println("Pogodjen servlet FilmoviServlet");
 		try {
 			List<Film> filmovi= FilmoviDAO.getAll();
 			
@@ -38,6 +38,7 @@ public class FilmoviServlet extends HttpServlet {
 				Map<String, Object> data = new LinkedHashMap<>();
 				data.put("filmovi", filmovi);
 				request.setAttribute("data", data);
+				
 				
 				
 				//response.getWriter().write(om.writeValueAsString(film));
@@ -53,7 +54,6 @@ public class FilmoviServlet extends HttpServlet {
 //			response.addHeader("Access-Control-Allow-Origin", "*");
 		
 			System.out.println("try izvrsen");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

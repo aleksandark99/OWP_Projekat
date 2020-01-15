@@ -13,45 +13,51 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bioskop.dao.FilmoviDAO;
+import bioskop.dao.UsersDAO;
 import bioskop.model.Film;
+import bioskop.model.Korisnik;
 
 /**
- * Servlet implementation class FilmServlet
+ * Servlet implementation class KorisniciServlet
  */
-public class FilmServlet extends HttpServlet {
+public class KorisniciServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public FilmServlet() {
+
+    public KorisniciServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
-		System.out.println("Pogodjen servlet FilmServlet");
+		System.out.println("Pogodjen servlet KorisniciServlet");
 		try {
-			String strid = request.getParameter("id");
-			Film film= FilmoviDAO.getFilm(strid);
-			System.out.println("ID sa fronta je "+ strid);
+			List<Korisnik> korisnici= UsersDAO.getAll();
+			
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 
-			//int id = Integer.parseInt(strid);
-			
-			
-			response.getWriter().write(om.writeValueAsString(film));
+			for(Korisnik korisnik : korisnici) {
+				System.out.println(korisnik.getUsername());
 				
 				Map<String, Object> data = new LinkedHashMap<>();
-				data.put("film", film);
+				data.put("korisnici", korisnici);
 				request.setAttribute("data", data);
-				System.out.println(data);
+				
+				
 
-//			response.getWriter().write(om.writeValueAsString(filmovi));
+				
+				
+				
+			}
+			response.getWriter().write(om.writeValueAsString(korisnici));
 			response.getWriter().close();
-//			response.addHeader("Access-Control-Allow-Origin", "*");
 		
 			System.out.println("try izvrsen");
+			System.out.println(korisnici.get(0).getDatumRegistracije());
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,9 +65,7 @@ public class FilmServlet extends HttpServlet {
 		
 		
 		
-		
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

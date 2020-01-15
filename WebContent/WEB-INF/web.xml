@@ -49,4 +49,14 @@
     <servlet-name>FilmServlet</servlet-name>
     <url-pattern>/FilmServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KorisniciServlet</display-name>
+    <servlet-name>KorisniciServlet</servlet-name>
+    <servlet-class>bioskop.servlets.KorisniciServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KorisniciServlet</servlet-name>
+    <url-pattern>/KorisniciServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
