@@ -11,10 +11,9 @@
     <init-param>
       <param-name>cors.allowOrigin</param-name>
       <param-value>http://localhost:8080, http://172.16.170.175:8080,http://localhost:8081,http://172.16.170.175:8081,</param-value>
-      
     </init-param>
   </filter>
- <filter-mapping>
+  <filter-mapping>
     <filter-name>CORS</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
@@ -40,4 +39,14 @@
   <listener>
     <listener-class>bioskop.servlets.InitListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>FilmServlet</display-name>
+    <servlet-name>FilmServlet</servlet-name>
+    <servlet-class>bioskop.servlets.FilmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilmServlet</servlet-name>
+    <url-pattern>/FilmServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
