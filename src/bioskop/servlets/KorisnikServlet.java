@@ -2,7 +2,6 @@ package bioskop.servlets;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,70 +16,46 @@ import bioskop.dao.UsersDAO;
 import bioskop.model.Film;
 import bioskop.model.Korisnik;
 
-/**
- * Servlet implementation class KorisniciServlet
- */
-public class KorisniciServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
 
-    public KorisniciServlet() {
+public class KorisnikServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public KorisnikServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Pogodjen servlet KorisniciServlet");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("Pogodjen servlet KorisnikServlet");
 		try {
-			String username="";
-			String uloga="";
-			try {
-				if(request.getParameter("username")!=null) {
-					username = request.getParameter("username");
-				}
-			
-				if(request.getParameter("uloga")!=null) {
-					uloga = request.getParameter("uloga");
-				}
-			}finally {
-					System.out.println("ss");
-				}
-			
-			
-			List<Korisnik> korisnici= UsersDAO.getAll(username,uloga);
-			
+			String korisnickoIme = request.getParameter("username");
+			Korisnik user = UsersDAO.getUser(korisnickoIme);
+			System.out.println("korisnickoIme sa fronta je "+ korisnickoIme);
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 
-//			for(Korisnik korisnik : korisnici) {
-//				System.out.println(korisnik.getUsername());
+			//int id = Integer.parseInt(strid);
+			
+			
+			response.getWriter().write(om.writeValueAsString(user));
 				
 				Map<String, Object> data = new LinkedHashMap<>();
-				data.put("korisnici", korisnici);
+				data.put("user", user);
 				request.setAttribute("data", data);
-				
-				
+				System.out.println(data);
 
-				
-				
-				
-			//}
-			response.getWriter().write(om.writeValueAsString(korisnici));
 			response.getWriter().close();
 		
 			System.out.println("try izvrsen");
-			System.out.println(korisnici.get(0).getDatumRegistracije());
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

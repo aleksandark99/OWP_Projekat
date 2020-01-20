@@ -10,17 +10,86 @@ import java.util.List;
 import bioskop.model.Film;
 public class FilmoviDAO {
 	
-	public static List<Film> getAll() throws Exception{
+	public static List<Film> getAll(String nazivFilma,int trajanjefilma,String zemljaPoreklaFilma,String Zanr,String Distributter,int godinaIzdavanja) throws Exception{
 		Connection conn = ConnectionManager.getConnection();
 		List<Film> filmovi = new ArrayList<Film>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		System.out.println("dosli ste na filmovidao");
+		System.out.println(rset);
+
+		System.out.println("dosli ste na filmovidao");
+
 		try {
-			String query= "select * from movies";
+//			String query= "select * from movies WHERE "
+//					+"naziv LIKE ?";
+			
+		//	String query ="select * from movies where naziv like ?  and distributer like ? and zemljaProekla like ? and zanrovi like ? or godina = ? or trajanje = ?";
+		//	String query ="select * from movies where naziv like ?  and distributer like ? and zemljaProekla like ? and zanrovi like ? or godina = ? or trajanje = ?";
+			String query ="select * from movies where naziv like ?  and distributer like ? and zemljaProekla like ? and zanrovi like ?";
+			
+			String a="";
+			String b="";
+
+			
+//			if(trajanjefilma ==0) {
+//				 a=" or godina = ?";
+//			}else {
+//				 a=" and godina = ?";
+//			}
+//			
+//			if(godinaIzdavanja==0) {
+//				b=" or trajanje = ?";
+//			}else {
+//				b=" and trajanje = ?";
+//			}
+//			query=query + a +b;
+//
+			
+			if(godinaIzdavanja !=0) {
+				 a=" and godina = ?";
+				 query=query+a;
+				 
+			}
+			
+			if(trajanjefilma!=0) {
+				b=" and trajanje = ?";
+				 query=query+b;
+			}
 			pstmt = conn.prepareStatement(query);
+			int i =1;
+			System.out.println(query+"%");
 			
 			
+			pstmt.setString(i++, "%" + nazivFilma + "%");
+			pstmt.setString(i++, "%" + Distributter + "%");
+			pstmt.setString(i++, "%" + zemljaPoreklaFilma + "%");
+			pstmt.setString(i++, "%" + Zanr + "%");
+//			pstmt.setInt(i++, godinaIzdavanja);
+//			pstmt.setInt(i++, trajanjefilma);
+			
+			if(godinaIzdavanja !=0) {
+
+				 
+				 pstmt.setInt(i++, godinaIzdavanja);
+			}
+			
+			if(trajanjefilma!=0) {
+
+				 pstmt.setInt(i++, trajanjefilma);
+			}
+			//query=query + a +b;
+
+	//		pstmt = conn.prepareStatement(query);
+			
+			
+
+//			pstmt.setString(i++, "%" + nazivFilma + "%");
+
+			
+			System.out.println(query+"SS");
+
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
