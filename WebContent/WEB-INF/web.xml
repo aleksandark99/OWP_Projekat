@@ -99,4 +99,40 @@
     <servlet-name>SuccessServlet</servlet-name>
     <url-pattern>/SuccessServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddMovieServlet</display-name>
+    <servlet-name>AddMovieServlet</servlet-name>
+    <servlet-class>bioskop.model.AddMovieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMovieServlet</servlet-name>
+    <url-pattern>/AddMovieServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveFilmServlet</display-name>
+    <servlet-name>RemoveFilmServlet</servlet-name>
+    <servlet-class>bioskop.servlets.RemoveFilmServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveFilmServlet</servlet-name>
+    <url-pattern>/RemoveFilmServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FilmRemoveServlet</display-name>
+    <servlet-name>FilmRemoveServlet</servlet-name>
+    <servlet-class>bioskop.servlets.FilmRemoveServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description></description>
+    <display-name>FilmUpdateServlet</display-name>
+    <servlet-name>FilmUpdateServlet</servlet-name>
+    <servlet-class>bioskop.servlets.FilmUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilmUpdateServlet</servlet-name>
+    <url-pattern>/FilmUpdateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bioskop.model.Film;
+import bioskop.model.Korisnik;
 public class FilmoviDAO {
 	
 	public static List<Film> getAll(String nazivFilma,int trajanjefilma,String zemljaPoreklaFilma,String Zanr,String Distributter,int godinaIzdavanja) throws Exception{
@@ -171,6 +172,132 @@ public class FilmoviDAO {
 		
 		
 		return null;
+	}
+
+	public static int getNextId()throws Exception {
+		Connection conn = ConnectionManager.getConnection();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query= "Select max(id) from movies";
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			if (rset.next()){
+				int index = 1;
+				int id=rset.getInt(index++);
+				return id+1;
+
+			}
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		return 0;
+
+	}
+
+	public static boolean addFilm(Film film) throws Exception {
+		Connection conn =ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			String query="insert into movies values(?,?,?,?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			pstmt.setString(index++, Integer.toString(film.getId()));
+			pstmt.setString(index++,film.getNaziv());
+			pstmt.setString(index++,film.getReziser());
+			pstmt.setString(index++,film.getGlumci());
+			pstmt.setString(index++,film.getZanrovi());
+			pstmt.setString(index++, Integer.toString(film.getTrajanje()));
+			pstmt.setString(index++,film.getDistributer());
+			pstmt.setString(index++,film.getZemljaPorekla());
+			pstmt.setString(index++, Integer.toString(film.getGodina()));
+			pstmt.setString(index++,film.getOpis());
+
+			return pstmt.executeUpdate() == 1;
+			
+			
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			
+		}
+//		return true;
+	}
+
+	public static boolean removeFilm(String id) throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		System.out.println("dosli ste na remove");
+		try {
+			conn.setAutoCommit(false); 
+			conn.commit();
+
+			String query = "delete from movies where id=?";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			pstmt.setString(index++, id);
+			pstmt.executeUpdate() ;
+			pstmt.close();
+			conn.commit();
+			System.out.println("remove je done ");
+
+			return true;
+			
+	
+			
+		}finally {
+		try {
+			conn.setAutoCommit(true);} catch (Exception ex1) {ex1.printStackTrace();}
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();} 
+			
+		}
+		
+		
+		
+		
+		
+	}
+
+	public static boolean update(Film film)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+
+		PreparedStatement pstmt = null;
+		try {
+			System.out.println("update dao");
+			String query ="update  movies set naziv = ? ,godina = ?, trajanje = ?,zemljaProekla = ?,distributer = ?,zanrovi = ? where id =?";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			
+			pstmt.setString(index++, film.getNaziv());
+			pstmt.setInt(index++, film.getGodina());
+			pstmt.setInt(index++, film.getTrajanje());
+			pstmt.setString(index++, film.getZemljaPorekla());
+			pstmt.setString(index++, film.getDistributer());
+			pstmt.setString(index++, film.getZanrovi());
+			pstmt.setInt(index++, film.getId());
+			System.out.println("update gotov");
+
+
+
+
+			
+			
+			
+			
+			return pstmt.executeUpdate() == 1;
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+		
+		
 	}
 
 }

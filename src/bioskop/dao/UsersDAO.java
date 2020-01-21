@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,9 +151,21 @@ public class UsersDAO {
 			pstmt.setString(index++, korisnik.getPassword());
 			pstmt.setString(index++, korisnik.getUloga().toString());
 			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-m-dd hh:mm:ss");  
-			String strDate = dateFormat.format(korisnik.getDatumRegistracije());  
-          	pstmt.setString(index++, strDate);
+//			DateFormat dateFormat = new SimpleDateFormat("yyyy-m-dd hh:mm:ss");  
+		//			DateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");  
+//			DateFormat dateFormat = new SimpleDateFormat("YYYY-dd-mm hh:mm:ss");  
+//			Date date = korisnik.getDatumRegistracije();
+//			System.out.println(date);
+//			Calendar calendar = Calendar.getInstance();
+//			calendar.setTime(date);
+			LocalDateTime date= LocalDateTime.now();
+			date=date.plusYears(1);
+//			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+			String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-dd-MM HH:mm:ss"));
+
+			//String strDate=dateFormat.format(date);
+			System.out.println("Datum u Dao"+formattedDate);
+          	pstmt.setString(index++, formattedDate);
           
 //			pstmt.setString(index++, korisnik.getDatumRegistracije().toString());
 

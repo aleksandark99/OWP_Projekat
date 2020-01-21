@@ -3,6 +3,7 @@ package bioskop.servlets;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -40,13 +41,17 @@ public class RegisterServlet extends HttpServlet {
 			if(UsersDAO.getUser(korisnickoIme) !=null) {
 				throw new Exception("Korisnicko ime vec postoji!");
 			}
-			if ("".equals(korisnickoIme)) {
+			// ovo null verovatno nece biti potrebno posle ali neka ostane ne skodi
+			if ("".equals(korisnickoIme) || korisnickoIme== null) {
 				throw new Exception("Korisnicko ime je prazno!");
 			}
 			String password = request.getParameter("password");
-			if ("".equals(password))
+			if ("".equals(password) || password ==null)
 				throw new Exception("Lozinka je prazna!");
-            Date datumRegistracije = Calendar.getInstance().getTime();  
+//            Date datumRegistracije = Calendar.getInstance().getTime();  
+			 Date datumRegistracije = new Date();
+				
+            System.out.println(datumRegistracije);
 //            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
 //            String strDate = dateFormat.format(date);  		
             
