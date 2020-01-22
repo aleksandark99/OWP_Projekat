@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS movies;
 
 
@@ -40,12 +39,25 @@ insert into users values('d','d','USER','2008-11-11');
 
 
 
-insert into users values('a','a','ADMIN','2008-3-3 23:59:58');
+insert into users values('a','a','ADMIN','2008-3-3 23:45:58');
 insert into users values('g','g','USER','2008-2-4 23:59:59');
-insert into users values('c','b','USER','2009-12-31 11:59:59');
+insert into users values('c','b','USER','2009-31-12 11:59:59');
 
 insert into users values('d','d','USER','2008-11-11');
 select * from movies
 select * from users
-
+delete from users
+Select max(id) from movies
 select * from movies where naziv like '%movie2%'  and godina = 1 
+
+delete from movies where id=1
+
+update  movies set naziv ='test' ,godina=3, trajanje=4,zemljaProekla ='test',distributer ='test',zanrovi ='test' where id =2
+ values(4,'movie4','reziser4','glumci 4','zanrovi 4',4,'distributer4','zemlja porekla 4',4,'opis4');
+
+
+
+
+
+
+
