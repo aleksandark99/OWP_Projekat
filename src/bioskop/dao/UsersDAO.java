@@ -159,7 +159,7 @@ public class UsersDAO {
 //			Calendar calendar = Calendar.getInstance();
 //			calendar.setTime(date);
 			LocalDateTime date= LocalDateTime.now();
-			date=date.plusYears(1);
+//			date=date.plusYears(1); nije 2021 godina nego 2020 readi sve kako treba
 //			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
 			String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-dd-MM HH:mm:ss"));
 
