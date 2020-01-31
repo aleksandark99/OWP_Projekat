@@ -184,4 +184,59 @@ public class UsersDAO {
 		
 	//	return false;
 	}
+
+
+	public static Korisnik getUser(String korisnickoIme,String password1) throws Exception{
+		
+		Connection conn = ConnectionManager.getConnection();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query= "select * from users where username = ? and password = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, korisnickoIme);
+			pstmt.setString(2, password1);
+
+			System.out.println(pstmt);
+			
+			
+			rset = pstmt.executeQuery();
+
+			if (rset.next()){
+				int index = 1;
+				
+				 
+				 String username=rset.getString(index++);
+				 String password=rset.getString(index++);
+				 Role uloga=Role.valueOf(rset.getString(index++));
+				 
+				 
+				 String date =rset.getString(index++);
+				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM");  
+
+				 Date datumRegistracije =formatter1.parse(date);
+				 System.out.println(datumRegistracije);
+		
+				 Korisnik user = new Korisnik(username, password, datumRegistracije, uloga);
+				
+				 System.out.println(user);
+
+				 return user;
+
+			}
+					
+			
+			
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		
+		
+	}
+		return null;
+	
+	}
+
 }

@@ -125,7 +125,7 @@
     <servlet-name>FilmRemoveServlet</servlet-name>
     <servlet-class>bioskop.servlets.FilmRemoveServlet</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>FilmUpdateServlet</display-name>
     <servlet-name>FilmUpdateServlet</servlet-name>
@@ -134,5 +134,15 @@
   <servlet-mapping>
     <servlet-name>FilmUpdateServlet</servlet-name>
     <url-pattern>/FilmUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>bioskop.servlets.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
 </web-app>
