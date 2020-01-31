@@ -1,10 +1,15 @@
 package bioskop.servlets;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bioskop.dao.UsersDAO;
 import bioskop.model.Korisnik;
@@ -32,15 +37,19 @@ public class LoginServlet extends HttpServlet {
 			try {
 				
 				
-				Korisnik korisnik = UsersDAO.getUser(username, password);
-				if(korisnik == null) {
+				Korisnik user = UsersDAO.getUser(username, password);
+				if(user == null) {
 					request.getRequestDispatcher("./FailureServlet").forward(request, response);
 					return;
 
 				}
-				request.getSession().setAttribute("loggedUsername", korisnik.getUsername());
-				request.getSession().setAttribute("Uloga", korisnik.getUloga());
+				request.getSession().setAttribute("loggedUsername", user.getUsername());
+				request.getSession().setAttribute("Uloga", user.getUloga());
 
+				request.getRequestDispatcher("./SuccessServlet").forward(request, response);
+
+
+				
 				
 			} catch (Exception ex) {
 				ex.printStackTrace();
