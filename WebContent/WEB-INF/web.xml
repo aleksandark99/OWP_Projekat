@@ -145,4 +145,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TipProjekcijeServlet</display-name>
+    <servlet-name>TipProjekcijeServlet</servlet-name>
+    <servlet-class>bioskop.servlets.TipProjekcijeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TipProjekcijeServlet</servlet-name>
+    <url-pattern>/TipProjekcijeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProjekcijeServlet</display-name>
+    <servlet-name>ProjekcijeServlet</servlet-name>
+    <servlet-class>bioskop.servlets.ProjekcijeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProjekcijeServlet</servlet-name>
+    <url-pattern>/ProjekcijeServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

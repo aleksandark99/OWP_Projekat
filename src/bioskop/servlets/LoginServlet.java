@@ -46,8 +46,20 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("loggedUsername", user.getUsername());
 				request.getSession().setAttribute("Uloga", user.getUloga());
 
+				ObjectMapper om = new ObjectMapper();
+				response.setContentType("application/json; utf-8");
+//				response.getWriter().write(om.writeValueAsString(user));
+				
+				Map<String, Object> data = new LinkedHashMap<>();
+				data.put("userName", user.getUsername());
+				data.put("role", user.getUloga());
+
+				request.setAttribute("data", data);
+//				System.out.println(data);
+
 				request.getRequestDispatcher("./SuccessServlet").forward(request, response);
 
+//				response.getWriter().close();
 
 				
 				

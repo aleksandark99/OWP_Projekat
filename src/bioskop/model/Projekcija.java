@@ -12,10 +12,10 @@ public class Projekcija {
 	private Sala sala;
 	private Date datum;
 	private int cenaKarte;
-	private User user;
+	private Korisnik user;
 	
 	
-	public Projekcija(int id, Film film, TipProjekcije tipProjekcije, Sala sala, Date datum, int cenaKarte, User user) {
+	public Projekcija(int id, Film film, TipProjekcije tipProjekcije, Sala sala, Date datum, int cenaKarte, Korisnik user) {
 		super();
 		this.id = id;
 		this.film = film;
@@ -87,12 +87,12 @@ public class Projekcija {
 	}
 
 
-	public User getUser() {
+	public Korisnik getUser() {
 		return user;
 	}
 
 
-	public void setUser(User user) {
+	public void setUser(Korisnik user) {
 		this.user = user;
 	}
 
@@ -100,7 +100,7 @@ public class Projekcija {
 	@Override
 	public String toString() {
 		return "Projekcija [id=" + id + ", film=" + film.getNaziv() + ", tipProjekcije=" + tipProjekcije.getNaziv() + ", sala=" + sala.getNaizv()
-				+ ", datum=" + datum + ", cenaKarte=" + cenaKarte + ", user=" + user.getName() + "]";
+				+ ", datum=" + datum + ", cenaKarte=" + cenaKarte + ", user=" + user.getUsername() + "]";
 	}
 	
 	
