@@ -33,10 +33,45 @@ public class ProjekcijeServlet extends HttpServlet {
 		try {
 			String movie="";
 			LocalDateTime odDate = LocalDateTime.now();
-			String formattedDate = odDate.format(DateTimeFormatter.ofPattern("YYYY-dd-MM HH:mm:ss"));
+			String od1 = odDate.format(DateTimeFormatter.ofPattern("YYYY-dd-MM HH:mm:ss"));
+			String do1 = "9999-12-31 23:59:59.997";
+			String sala="";
+			String tip ="";
+			int min =0;
+			int max =99999999;
 			
+			try {
+				if(request.getParameter("movie") != null) {
+					movie=request.getParameter("movie");
+				}
+				if(request.getParameter("sala") != null) {
+					sala=request.getParameter("sala");
+				}
+				if(request.getParameter("tip") != null) {
+					tip=request.getParameter("tip");
+				}
+				if(request.getParameter("min") != null) {
+					try {
+					min=Integer.parseInt(request.getParameter("min"));
+					System.out.println(min);
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+					}
+				if(request.getParameter("max") != null) {
+					try {
+						max = Integer.parseInt(request.getParameter("max"));
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
+				}finally {
+					
+				}
 			
-			List<Projekcija> projekcije =ProjekcijeDAO.getProjekcije("", "2020-06-12 11:00:59", "2021-06-12 11:00:59", 1, 1, 0, 9999);
+
+
+			List<Projekcija> projekcije =ProjekcijeDAO.getProjekcije(movie, od1, do1, sala, tip, min, max);
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 			Map<String, Object> data = new LinkedHashMap<>();

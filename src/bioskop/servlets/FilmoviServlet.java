@@ -46,8 +46,12 @@ public class FilmoviServlet extends HttpServlet {
 			//	 nazivFilma = request.getParameter("nazivFilma");
 				 String a = request.getParameter("trajanje");
 				 if(a != null) {
+					 try {
 					 trajanje=Integer.parseInt(a);
-				 }
+					 }catch (Exception e) {
+						// TODO: handle exception
+					}
+					 }
 				 
 					if(request.getParameter("zemljaPorekla")!=null) {
 						zemljaPorekla = request.getParameter("zemljaPorekla");
@@ -66,7 +70,11 @@ public class FilmoviServlet extends HttpServlet {
 				 
 				 String b =request.getParameter("godina");
 				 if(b !=null) {
-					 godina =Integer.parseInt(b);
+					 try {
+						 godina =Integer.parseInt(b);
+					 }catch (Exception e) {
+						// TODO: handle exception
+					}
 
 				 }
 			}finally {
@@ -92,9 +100,6 @@ public class FilmoviServlet extends HttpServlet {
 			
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
-
-//			for(Film film : filmovi) {
-//				System.out.println(film.getNaziv());
 				
 				Map<String, Object> data = new LinkedHashMap<>();
 				data.put("filmovi", filmovi);
@@ -102,17 +107,8 @@ public class FilmoviServlet extends HttpServlet {
 				
 				
 				
-				//response.getWriter().write(om.writeValueAsString(film));
-				//response.getWriter().append(om.writeValueAsString(film));
-			//	response.getOutputStream().wr
-			//	response.getWriter().close();
-				
-				
-				
-//			}
 			response.getWriter().write(om.writeValueAsString(filmovi));
 			response.getWriter().close();
-//			response.addHeader("Access-Control-Allow-Origin", "*");
 		
 			System.out.println("try izvrsen");
 		} catch (Exception e) {
