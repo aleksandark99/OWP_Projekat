@@ -175,4 +175,34 @@
     <servlet-name>SaleServlet</servlet-name>
     <url-pattern>/SaleServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProjekcijaServlet</display-name>
+    <servlet-name>ProjekcijaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.ProjekcijaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProjekcijaServlet</servlet-name>
+    <url-pattern>/ProjekcijaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddProjekcija</display-name>
+    <servlet-name>AddProjekcija</servlet-name>
+    <servlet-class>bioskop.servlets.AddProjekcija</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddProjekcija</servlet-name>
+    <url-pattern>/AddProjekcija</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SedistaServlet</display-name>
+    <servlet-name>SedistaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.SedistaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SedistaServlet</servlet-name>
+    <url-pattern>/SedistaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

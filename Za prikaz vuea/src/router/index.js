@@ -7,8 +7,10 @@ import Users from '../views/Users.vue'
 import User from '../views/User.vue'
 import AddUser from '../views/AddUser.vue'
 import AddMovie from '../views/AddMovie.vue'
-
-
+import Login from '../views/Login.vue'
+import Projekcija from '../views/Projekcija.vue'
+import AddProjekcija from '../views/AddProjekcija.vue'
+import AddKarta from '../views/AddKarta.vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Install BootstrapVue
@@ -26,22 +28,27 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+
   },
   {
     path: '/filmovi',
     name: 'Filmovi',
     component: Filmovi
   },
-//     {path: '/film-*',
-//     name: 'Film',
-//     component: Film ,
-    
-    
-// },
 {path: '/film/:id',
 name: 'Film',
 component: Film ,
+props:true
+},
+{path:'/addKarta/:id',
+name:'AddKarta',
+component:AddKarta,
+props:true
+},
+{path: '/projekcija/:id',
+name: 'Projekcija',
+component: Projekcija ,
 props:true
 },
 {
@@ -63,7 +70,18 @@ component: AddUser,
 path:'/addMovie',
 name:'AddMovie',
 component: AddMovie
-}
+},
+{
+  path:'/addProjekcija',
+  name:'AddProjekcija',
+  component:AddProjekcija
+
+},
+{
+  path:'/login',
+  name:'Login',
+  component: Login,
+  },
 ]
 
 const router = new VueRouter({

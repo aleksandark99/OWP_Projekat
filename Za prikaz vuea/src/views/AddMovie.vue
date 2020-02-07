@@ -1,6 +1,5 @@
 <template>
   <div>
-    ssssssssssssssssss
     <div class="container" id="s">
       <div class="row">
         <div class="col-md-6 mx-auto">
@@ -29,7 +28,6 @@
                 required
                 placeholder="Enter Distributer"
               ></b-form-input>
-              <!-- na ovom view-u ce izbaciti verbose neku password glupost izignorisati slobodno nije warning i nije error -->
             </b-form-group>
             <b-form-group id="input-group-4" label="Zemlja porekla:" label-for="input-4">
               <b-form-input
@@ -90,12 +88,6 @@
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
           </b-form>
-
-
-            
-          <b-card class="mt-3" header="Form Data Result">
-            <pre class="m-0">{{ form }}</pre>
-          </b-card>
         </div>
       </div>
     </div>
@@ -105,8 +97,6 @@
 <script>
 import axios from "axios";
 import router from "../router/index.js";
-// Vue.use(VueRouter)
-
 export default {
   name: "AddMovie",
   data() {
@@ -129,14 +119,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-    //   if (this.form.password === this.form.password2) {
-        // alert(JSON.stringify(this.form));
 
-        // axios.post(`http://172.16.170.175:8081/SF-15-2018-OWP/RegisterServlet`,
-        // {
-        //   username:"h",
-        //   password:"h",
-        // })
 
         const params = new URLSearchParams();
         params.append("naziv", this.form.naziv);
@@ -156,34 +139,25 @@ export default {
         })
           .then(function(response) {
             console.log(response);
-            //     alert(JSON.stringify(response))
             if (response.data.status == "failure") {
               alert("Korisnicko ime je zauzeto");
             }
             if (response.data.status == "success") {
               alert("Uspeno ste se dodali film");
               router.push("/filmovi");
-              // rutirati na login ... !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
           })
           .catch(function(error) {
             console.log(error);
             alert(error);
           });
-    //   } else {
-    //     alert("Lozinke se ne poklapaju");
-    //     this.form.password = "";
-    //     this.form.password2 = "";
-    //   }
+
     },
     onReset(evt) {
       evt.preventDefault();
-      // Reset our form values
       this.form.username = "";
       this.form.password = "";
       this.form.password2 = "";
-
-      // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;

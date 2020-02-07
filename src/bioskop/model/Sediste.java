@@ -1,28 +1,28 @@
 package bioskop.model;
 
 public class Sediste {
-	private int redniBroj;
-	private Sala sala;
-	public Sediste(int redniBroj, Sala sala) {
+	private String redniBroj;
+	private String  sala;
+	public Sediste(String redniBroj, String sala) {
 		super();
 		this.redniBroj = redniBroj;
 		this.sala = sala;
 	}
-	public int getRedniBroj() {
+	public String getRedniBroj() {
 		return redniBroj;
 	}
-	public void setRedniBroj(int redniBroj) {
+	public void setRedniBroj(String redniBroj) {
 		this.redniBroj = redniBroj;
 	}
-	public Sala getSala() {
+	public String getSala() {
 		return sala;
 	}
-	public void setSala(Sala sala) {
+	public void setSala(String sala) {
 		this.sala = sala;
 	}
 	@Override
 	public String toString() {
-		return "Sediste [redniBroj=" + redniBroj + ", sala=" + sala.getId() + "]";
+		return "Sediste redniBroj=" + redniBroj + ", sala=" + sala + "]";
 	}
 	
 	

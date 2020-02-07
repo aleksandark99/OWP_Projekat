@@ -7,7 +7,7 @@
   
 
    <div >
-      <b-table  ref="table" striped hover :items="items" :fields="fields"></b-table>
+      <b-table  responsive ref="table" striped hover :items="items" :fields="fields"></b-table>
 
         <!-- <b-button variant="danger" @click="removeMovie">Remove</b-button> -->
         <!-- <b-button variant="success" >Edit</b-button> -->
@@ -21,7 +21,7 @@
         <Label class="mb-2 mr-sm-2 mb-sm-2">sss</Label> -->
 
 
-        <b-form inline>
+        <b-form inline v-show="show">
     <label class="sr-only" for="inline-form-input-naziv">Naziv</label>
     <b-input
       id="inline-form-input-naziv"
@@ -74,10 +74,10 @@
   </b-form>
   <br>
 
- <b-button variant="primary" @click="EditMovie">Confirm</b-button> 
+ <b-button variant="primary" @click="EditMovie" v-show="show">Confirm</b-button> 
   <br>
   <br>
-          <b-button variant="danger" @click="removeMovie">Remove</b-button>
+          <b-button variant="danger" @click="removeMovie" v-show="show">Remove</b-button>
       
 
 
@@ -94,7 +94,7 @@ export default {
   data() {
     
       return {
-          show:true,
+          show:false,
           a:0,
 
               godina:"",
@@ -138,6 +138,21 @@ export default {
           {
             label:'Godina Proizvodnje',
             key: 'godina',
+            sortable: false
+          },
+            {
+            label:'Reziser',
+            key: 'reziser',
+            sortable: false
+          },
+            {
+            label:'Glumci',
+            key: 'glumci',
+            sortable: false
+          },
+            {
+            label:'Opis',
+            key: 'opis',
             sortable: false
           },
         ],
@@ -232,12 +247,12 @@ EditMovie(){
 ,
 
 mounted (){
-//console.log(this.id)
-  // 'http://172.16.170.175:8081/SF-15-2018-OWP/FilmoviServlet'
-  // 'http://localhost:8081/SF-15-2018-OWP/FilmoviServlet'
-// axios.get('http://172.16.170.175:8081/SF-15-2018-OWP/FilmServlet',{id : this.$route.params.movieId})
+  if(this.$store.state.seen==true){
+    this.show=true;
+  }
+
 axios.get(`http://localhost:8081/SF-15-2018-OWP/FilmServlet?id=${this.id}`)
- .then(res =>  this.items.push(res.data))
+.then(res =>  this.items.push(res.data))
 .catch(err => console.log(err))
  }
 }

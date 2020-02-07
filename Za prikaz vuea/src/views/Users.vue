@@ -88,7 +88,7 @@ export default {
     },
     filterUsers(){
           axios
-      .get(`http://172.16.170.175:8081/SF-15-2018-OWP/KorisniciServlet?username=${this.a}&uloga=${this.b}`)
+      .get(`http://localhost:8081/SF-15-2018-OWP/KorisniciServlet?username=${this.a}&uloga=${this.b}`)
       .then(res => (this.items = res.data))
       // .then(res =>  console.log("sss"+res.data))
       .catch(err => console.log(err));

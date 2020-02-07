@@ -1,8 +1,11 @@
 package bioskop.servlets;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,35 @@ public class ProjekcijeServlet extends HttpServlet {
 			int max =99999999;
 			
 			try {
+				
+				
+				if(request.getParameter("doDate") != null && request.getParameter("doDate")!="") {
+					try {
+					String o=request.getParameter("doDate");
+					 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
+					 Date date3=formatter1.parse(o);  
+					 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+			         String strDate = dateFormat.format(date3); 
+			         System.out.println(strDate+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+			         do1=strDate;
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+					}
+				
+				if(request.getParameter("odDate") != null && request.getParameter("odDate")!="") {
+					try {
+					String o=request.getParameter("odDate");
+					 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
+					 Date date3=formatter1.parse(o);  
+					 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+			         String strDate = dateFormat.format(date3); 
+			         System.out.println(strDate+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+			         od1=strDate;
+				}catch (Exception e) {
+					// TODO: handle exception
+				}
+					}
 				if(request.getParameter("movie") != null) {
 					movie=request.getParameter("movie");
 				}
@@ -68,8 +100,7 @@ public class ProjekcijeServlet extends HttpServlet {
 				}finally {
 					
 				}
-			
-
+			System.out.println(od1 +"|||"+do1);
 
 			List<Projekcija> projekcije =ProjekcijeDAO.getProjekcije(movie, od1, do1, sala, tip, min, max);
 			ObjectMapper om = new ObjectMapper();
@@ -79,7 +110,7 @@ public class ProjekcijeServlet extends HttpServlet {
 			request.setAttribute("data", data);
 			response.getWriter().write(om.writeValueAsString(projekcije));
 			response.getWriter().close();
-			
+
 			
 			
 			

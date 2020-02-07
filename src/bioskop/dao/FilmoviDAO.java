@@ -17,11 +17,6 @@ public class FilmoviDAO {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println("dosli ste na filmovidao");
-		System.out.println(rset);
-
-		System.out.println("dosli ste na filmovidao");
-
 		try {
 //			String query= "select * from movies WHERE "
 //					+"naziv LIKE ?";
@@ -135,7 +130,6 @@ public class FilmoviDAO {
 			String query= "select * from movies where id = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, idfilma);
-			System.out.println(pstmt);
 			
 			
 			rset = pstmt.executeQuery();
@@ -155,7 +149,6 @@ public class FilmoviDAO {
 				 String opis=rset.getString(index++);
 				 Film film = new Film(id, naziv, reziser, glumci, zanrovi, trajanje, distributer, zemljaPorekla, godina, opis);
 				
-				 System.out.println(film);
 
 				 return film;
 

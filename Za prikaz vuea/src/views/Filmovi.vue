@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <b-table :fields="fields" :items="items">
+    <b-table responsive :fields="fields" :items="items">
       <template v-slot:cell(naziv)="data">
         <router-link :to="`/film/${data.item.id}`">{{ data.value}}</router-link>
       </template>

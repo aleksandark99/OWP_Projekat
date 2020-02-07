@@ -11,7 +11,9 @@
         <b-nav-item to="/filmovi"> Filmovi</b-nav-item>
         <b-nav-item to="/users"> Users</b-nav-item>
         <!-- <b-button v-show="c" to="/addUser"  variant="danger">Add User</b-button> -->
-        <b-button v-show="c" to="/addMovie"  variant="danger">Add Movie</b-button>
+        <b-button v-show="c" to="/addMovie"  variant="success">Add Movie</b-button>
+        <b-button v-show="c" to="/addProjekcija"  variant="success">Add Projekcija</b-button>
+
 
 
 
@@ -23,12 +25,12 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <!-- <button type="button" class="btn btn-success">Login</button> -->
-                <b-button v-show="c" to="/addUser"  variant="success" id="reg">Login</b-button>
+                <b-button v-show="!c" to="/login"  variant="success" id="reg">Login</b-button>
 
         <br>
         <br>
         <!-- <button type="button" @click="routeToAddUser" class="btn btn-danger">Register</button> -->
-        <b-button v-show="c" to="/addUser"  variant="danger" id="reg">Register</b-button>
+        <b-button v-show="!c" to="/addUser"  variant="danger" id="reg">Register</b-button>
 
         
 

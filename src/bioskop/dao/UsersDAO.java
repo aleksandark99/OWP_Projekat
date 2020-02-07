@@ -115,11 +115,9 @@ public class UsersDAO {
 				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM");  
 
 				 Date datumRegistracije =formatter1.parse(date);
-				 System.out.println(datumRegistracije);
 		
 				 Korisnik user = new Korisnik(username, password, datumRegistracije, uloga);
 				
-				 System.out.println(user);
 
 				 return user;
 
