@@ -6,12 +6,12 @@ import java.util.Date;
 public class Karta {
 
 	private int id;
-	private Projekcija projekcija;
-	private Sediste sediste;
+	private int projekcija;
+	private String sediste;
 	private Date datum;
-	private Korisnik user;
+	private String user;
 	
-	public Karta(int id, Projekcija projekcija, Sediste sediste, Date datum, Korisnik user) {
+	public Karta(int id, int projekcija, String sediste, Date datum, String user) {
 		super();
 		this.id = id;
 		this.projekcija = projekcija;
@@ -28,19 +28,19 @@ public class Karta {
 		this.id = id;
 	}
 
-	public Projekcija getProjekcija() {
+	public int getProjekcija() {
 		return projekcija;
 	}
 
-	public void setProjekcija(Projekcija projekcija) {
+	public void setProjekcija(int projekcija) {
 		this.projekcija = projekcija;
 	}
 
-	public Sediste getSediste() {
+	public String getSediste() {
 		return sediste;
 	}
 
-	public void setSediste(Sediste sediste) {
+	public void setSediste(String sediste) {
 		this.sediste = sediste;
 	}
 
@@ -52,18 +52,18 @@ public class Karta {
 		this.datum = datum;
 	}
 
-	public Korisnik getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(Korisnik user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Karta [id=" + id + ", projekcija=" + projekcija.getId() + ", sediste=" + sediste.getRedniBroj() + ", datum=" + datum
-				+ ", user=" + user.getUsername() + "]";
+		return "Karta [id=" + id + ", projekcija=" + projekcija + ", sediste=" + sediste + ", datum=" + datum
+				+ ", user=" + user + "]";
 	}
 	
 	

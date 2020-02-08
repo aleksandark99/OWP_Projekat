@@ -45,7 +45,8 @@ public class LoginServlet extends HttpServlet {
 				}
 				request.getSession().setAttribute("loggedUsername", user.getUsername());
 				request.getSession().setAttribute("Uloga", user.getUloga());
-
+				System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLll");
+				System.out.println(request.getSession().getAttribute("loggedUsername"));
 				ObjectMapper om = new ObjectMapper();
 				response.setContentType("application/json; utf-8");
 //				response.getWriter().write(om.writeValueAsString(user));

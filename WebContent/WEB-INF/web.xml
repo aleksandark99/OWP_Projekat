@@ -205,4 +205,24 @@
     <servlet-name>SedistaServlet</servlet-name>
     <url-pattern>/SedistaServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ZauzetaSedista</display-name>
+    <servlet-name>ZauzetaSedista</servlet-name>
+    <servlet-class>bioskop.servlets.ZauzetaSedista</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ZauzetaSedista</servlet-name>
+    <url-pattern>/ZauzetaSedista</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddKartaServlet</display-name>
+    <servlet-name>AddKartaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.AddKartaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddKartaServlet</servlet-name>
+    <url-pattern>/AddKartaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
