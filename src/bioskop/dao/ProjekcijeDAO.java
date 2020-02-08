@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.concurrent.ExecutionException;
 
 import bioskop.model.Film;
 import bioskop.model.Korisnik;
@@ -203,6 +203,66 @@ public class ProjekcijeDAO {
 
 	}
 	
+	public static TipProjekcije getTip (String id)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query ="select * from tip_projekcije where id = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,id );
+			
+			rset = pstmt.executeQuery();
+			if (rset.next()) {
+				int index = 1;
+					
+				 int idTipa=rset.getInt(index++);
+				 String  naziv =rset.getString(index++);
+				 TipProjekcije p = new TipProjekcije(idTipa, naziv);
+				 return p;
+			}
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		return null;
+	}
+	
+	public static List<Sala> getSaleSaTipom(String id_tipa)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Sala> sale = new ArrayList<Sala>();
+		try {
+			String query ="select * from sala where id in (select id_sale from sala_projekcija where id_tip =?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id_tipa);
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				
+				int index = 1;
+				int idSale=rset.getInt(index++);
+				String naziv =rset.getString(index++);
+				List<String> tipoviProjekcija=gettipoviSale(Integer.toString(idSale));
+				ArrayList<TipProjekcije> t=new ArrayList<TipProjekcije>();
+				for (String string : tipoviProjekcija) {
+					TipProjekcije pp= getTip(string);
+					t.add(pp);
+				}
+//				Sala sala=new Sala(idSale, naziv, new ArrayList<TipProjekcije>() );
+				Sala sala=new Sala(idSale, naziv, t );
+
+				sale.add(sala);
+				
+			}
+		return sale;
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+	}
 	public static List<Sala> getSale()throws Exception{
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
@@ -217,8 +277,15 @@ public class ProjekcijeDAO {
 				int index = 1;
 				int idSale=rset.getInt(index++);
 				String naziv =rset.getString(index++);
+				List<String> tipoviProjekcija=gettipoviSale(Integer.toString(idSale));
+				ArrayList<TipProjekcije> t=new ArrayList<TipProjekcije>();
+				for (String string : tipoviProjekcija) {
+					TipProjekcije pp= getTip(string);
+					t.add(pp);
+				}
+//				Sala sala=new Sala(idSale, naziv, new ArrayList<TipProjekcije>() );
+				Sala sala=new Sala(idSale, naziv, t );
 
-				Sala sala=new Sala(idSale, naziv, new ArrayList<TipProjekcije>() );
 				sale.add(sala);
 				
 			}
@@ -254,7 +321,35 @@ public class ProjekcijeDAO {
 
 	}
 
+	public static List<String> gettipoviSale(String id)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<String> tipoviSale = new ArrayList<String>();
+		try {
+			String query ="select * from sala_projekcija where id_sale =?";
+			pstmt = conn.prepareStatement(query);
+			int i =1;
+			pstmt.setString(i++,id );
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				
+				int index = 1;
+				int idSale=rset.getInt(index++);
+				String idTipa =rset.getString(index++);
 
+				tipoviSale.add(idTipa);
+
+				
+			}
+		return tipoviSale;
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+	}
+	
 	public static List<Sediste> getSedista(String id)throws Exception{
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
@@ -285,5 +380,63 @@ public class ProjekcijeDAO {
 		}
 		
 	}
+	
+	public static List<String> getZauzetaSedista(String id_projekcije)throws Exception{
+		
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<String> zauzetaSedista = new ArrayList<String>();
+		try {
+			String query ="select sediste from karte where id_projekcije=?";
+			pstmt = conn.prepareStatement(query);
+			int i =1;
+			pstmt.setString(i++,id_projekcije );
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				
+				String sediste=rset.getString(1);
 
+				zauzetaSedista.add(sediste);
+
+				
+			}
+		return zauzetaSedista;
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+	}
+	
+	public static boolean addProjekcija(String id_filma,String id_tipa,String id_sale,String date,String cena,String username_admina) throws Exception {
+		Connection conn =ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			String query="insert into projekcije values(?,?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			int id=getNextId();
+			pstmt.setInt(index++, id);
+			pstmt.setString(index++,id_filma);
+			pstmt.setString(index++,id_tipa);
+			pstmt.setString(index++,id_sale);
+			pstmt.setString(index++,date);
+			pstmt.setString(index++,cena);
+			pstmt.setString(index++,username_admina);
+
+
+
+			return pstmt.executeUpdate() == 1;
+			
+			
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			
+		}
+//		return true;
+	}
 }

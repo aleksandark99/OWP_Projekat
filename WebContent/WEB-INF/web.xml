@@ -225,4 +225,44 @@
     <servlet-name>AddKartaServlet</servlet-name>
     <url-pattern>/AddKartaServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditUserServlet</display-name>
+    <servlet-name>EditUserServlet</servlet-name>
+    <servlet-class>bioskop.servlets.EditUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditUserServlet</servlet-name>
+    <url-pattern>/EditUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TipoviSale</display-name>
+    <servlet-name>TipoviSale</servlet-name>
+    <servlet-class>bioskop.servlets.TipoviSale</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TipoviSale</servlet-name>
+    <url-pattern>/TipoviSale</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SaleSaTipom</display-name>
+    <servlet-name>SaleSaTipom</servlet-name>
+    <servlet-class>bioskop.servlets.SaleSaTipom</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaleSaTipom</servlet-name>
+    <url-pattern>/SaleSaTipom</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>bioskop.servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

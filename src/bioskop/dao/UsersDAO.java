@@ -183,6 +183,29 @@ public class UsersDAO {
 	//	return false;
 	}
 
+	public static boolean updateUser(Korisnik korisnik,String staro)throws Exception {
+		Connection conn = ConnectionManager.getConnection();
+
+		PreparedStatement pstmt = null;
+		try {
+			System.out.println("update dao");
+			String query ="update  users set username =? ,password=? where username =?";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			
+			pstmt.setString(index++, korisnik.getUsername());
+			pstmt.setString(index++, korisnik.getPassword());
+			pstmt.setString(index++, staro);
+
+			System.out.println("update gotov");
+			return pstmt.executeUpdate() == 1;
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+	}
 
 	public static Korisnik getUser(String korisnickoIme,String password1) throws Exception{
 		
