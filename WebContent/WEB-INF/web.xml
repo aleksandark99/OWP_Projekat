@@ -265,4 +265,44 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetKarteProjekcije</display-name>
+    <servlet-name>GetKarteProjekcije</servlet-name>
+    <servlet-class>bioskop.servlets.GetKarteProjekcije</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetKarteProjekcije</servlet-name>
+    <url-pattern>/GetKarteProjekcije</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UnauthorizedServlet</display-name>
+    <servlet-name>UnauthorizedServlet</servlet-name>
+    <servlet-class>bioskop.status.UnauthorizedServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UnauthorizedServlet</servlet-name>
+    <url-pattern>/UnauthorizedServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KarteKorisnikaServlet</display-name>
+    <servlet-name>KarteKorisnikaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.KarteKorisnikaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KarteKorisnikaServlet</servlet-name>
+    <url-pattern>/KarteKorisnikaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IzvestajServlet</display-name>
+    <servlet-name>IzvestajServlet</servlet-name>
+    <servlet-class>bioskop.servlets.IzvestajServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IzvestajServlet</servlet-name>
+    <url-pattern>/IzvestajServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

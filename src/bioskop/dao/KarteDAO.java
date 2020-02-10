@@ -3,12 +3,18 @@ package bioskop.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import bioskop.model.Karta;
+import bioskop.model.Sala;
 
 public class KarteDAO {
+	
 	
 	public static int getNextId()throws Exception {
 		Connection conn = ConnectionManager.getConnection();
@@ -62,5 +68,83 @@ public class KarteDAO {
 		
 		
 		
+	}
+
+	public static List<Karta> getAll(String idP)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Karta> karte = new ArrayList<Karta>();
+		try {
+			String query ="select * from karte where id_projekcije=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, idP);
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				int index=1;
+				
+				 int id = rset.getInt(index++);
+				 int id_projekcije = rset.getInt(index++);
+
+				 String date =rset.getString(index++);
+				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
+				 Date datum =formatter1.parse(date);
+				 
+				 String username =rset.getString(index++);
+				 String sediste =rset.getString(index++);
+				 Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
+				 karte.add(karta);
+
+			}
+		
+
+			
+			
+			return karte;
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+	}
+
+	public static List<Karta> getAllKorisnik(String usernameK)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Karta> karte = new ArrayList<Karta>();
+		try {
+			String query ="select * from karte where username_kupca=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, usernameK);
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				int index=1;
+				
+				 int id = rset.getInt(index++);
+				 int id_projekcije = rset.getInt(index++);
+
+				 String date =rset.getString(index++);
+				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
+				 Date datum =formatter1.parse(date);
+				 
+				 String username =rset.getString(index++);
+				 String sediste =rset.getString(index++);
+				 Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
+				 karte.add(karta);
+
+			}
+		
+
+			
+			
+			return karte;
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
 	}
 }

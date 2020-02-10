@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import bioskop.model.Film;
+import bioskop.model.Izvestaj;
 import bioskop.model.Korisnik;
 import bioskop.model.Projekcija;
 import bioskop.model.Sala;
@@ -438,5 +439,49 @@ public class ProjekcijeDAO {
 			
 		}
 //		return true;
+	}
+
+	public static List<Izvestaj> izvestaj()throws Exception{
+		
+		Connection conn = ConnectionManager.getConnection();
+		List<Izvestaj> izvestaji = new ArrayList<Izvestaj>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query ="select movies.id ,movies.naziv ,count(distinct projekcije.id)as brojProjekcija,count( karte.id) as brojKarata ,sum(projekcije.cena) as ukupno from movies left join projekcije on projekcije.id_filma = movies.id left join karte on projekcije.id = karte.id_projekcije group by movies.id;";
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			while (rset.next()){
+				
+				int index = 1;
+				String idfilma=rset.getString(index++);
+				Film film = FilmoviDAO.getFilm(idfilma);
+				String naziv =rset.getString(index++);
+				String brProjekcija =rset.getString(index++);
+				String prodateKarte =rset.getString(index++);
+				String ukupno =rset.getString(index++);
+				
+				Izvestaj izvestaj= new Izvestaj(film, brProjekcija, prodateKarte, ukupno);
+
+				izvestaji.add(izvestaj);
+//				Sala sala=new Sala(idSale, naziv, new ArrayList<TipProjekcije>() );
+//				Sala sala=new Sala(idSale, naziv, t );
+//
+//				sale.add(sala);
+				
+			}
+		return izvestaji;
+
+			
+			
+			
+			
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+		
 	}
 }
