@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bioskop.dao.KarteDAO;
 import bioskop.model.Karta;
+import bioskop.model.Role;
 
 public class KarteKorisnikaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +25,22 @@ public class KarteKorisnikaServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		String korisnickoIme = request.getParameter("username");
+
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		
+		System.out.println(Uloga);
+		if (loggedUsername == null  ) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}else if (!korisnickoIme.equals(loggedUsername))
+			if(!Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+		
+		
 		try {			
 			String username = request.getParameter("username");
 		List<Karta> karte = KarteDAO.getAllKorisnik(username);

@@ -305,4 +305,24 @@
     <servlet-name>IzvestajServlet</servlet-name>
     <url-pattern>/IzvestajServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SlobodnaSedistaServlet</display-name>
+    <servlet-name>SlobodnaSedistaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.SlobodnaSedistaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SlobodnaSedistaServlet</servlet-name>
+    <url-pattern>/SlobodnaSedistaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UlogaKorisnikaServlet</display-name>
+    <servlet-name>UlogaKorisnikaServlet</servlet-name>
+    <servlet-class>bioskop.servlets.UlogaKorisnikaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UlogaKorisnikaServlet</servlet-name>
+    <url-pattern>/UlogaKorisnikaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

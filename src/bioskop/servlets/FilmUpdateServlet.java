@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bioskop.dao.FilmoviDAO;
 import bioskop.model.Film;
+import bioskop.model.Role;
 
 /**
  * Servlet implementation class FilmRemoveServlet
@@ -29,7 +30,13 @@ public class FilmUpdateServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 try {
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+		try {
 			 System.out.println("=================================================");
 			 String naziv=request.getParameter("naziv");
 			 String reziser=request.getParameter("reziser");

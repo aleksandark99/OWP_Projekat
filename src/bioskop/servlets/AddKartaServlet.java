@@ -26,7 +26,15 @@ public class AddKartaServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			try {
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		if (loggedUsername == null) {
+//			response.sendRedirect("./Login.html");
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+		
+		
+		try {
 				String id_projekcije=request.getParameter("id_projekcije");
 				String sedista = request.getParameter("sedista");
 				String[] lSedista=sedista.split("\\,");

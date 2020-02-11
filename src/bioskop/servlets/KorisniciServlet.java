@@ -16,6 +16,7 @@ import bioskop.dao.FilmoviDAO;
 import bioskop.dao.UsersDAO;
 import bioskop.model.Film;
 import bioskop.model.Korisnik;
+import bioskop.model.Role;
 
 /**
  * Servlet implementation class KorisniciServlet
@@ -32,6 +33,12 @@ public class KorisniciServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
 		System.out.println("Pogodjen servlet KorisniciServlet");
 		try {
 			String username="";

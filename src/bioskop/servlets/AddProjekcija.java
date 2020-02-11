@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bioskop.dao.ProjekcijeDAO;
+import bioskop.model.Role;
 
 
 public class AddProjekcija extends HttpServlet {
@@ -27,7 +28,12 @@ public class AddProjekcija extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		// TODO Auto-generated method stub
-
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
 		try {	
 		String datum = request.getParameter("datum");
 		System.out.println("datum:"+datum);

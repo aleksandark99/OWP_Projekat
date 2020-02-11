@@ -25,7 +25,12 @@ public class AddMovieServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
 		try {
 			 String naziv=request.getParameter("naziv");
 			 String reziser=request.getParameter("reziser");

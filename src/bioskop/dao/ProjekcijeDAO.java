@@ -484,4 +484,68 @@ public class ProjekcijeDAO {
 		
 		
 	}
+
+	public static int brojSedistaSale (String id_sale)throws Exception{
+		
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int br=0;
+		try {
+			String query ="select count(*) from sedista where id_sale = ?";
+			pstmt = conn.prepareStatement(query);
+			int i =1;
+			pstmt.setString(i++,id_sale );
+			rset = pstmt.executeQuery();
+			if (rset.next()){
+				int index = 1;
+				int brojSedista=rset.getInt(index++);
+				
+				br=brojSedista;
+				return br;
+
+				
+			}
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+		
+		
+		return 0;
+	}
+	
+public static int brojKarataZaSedistaSale (String id_projekcije)throws Exception{
+		
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int br=0;
+		try {
+			String query ="select count(*) from karte where id_projekcije = ?";
+			pstmt = conn.prepareStatement(query);
+			int i =1;
+			pstmt.setString(i++,id_projekcije );
+			rset = pstmt.executeQuery();
+			if (rset.next()){
+				int index = 1;
+				int brojSedista=rset.getInt(index++);
+				
+				br=brojSedista;
+				return br;
+
+				
+			}
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+		
+		
+		
+		return 0;
+	}
 }

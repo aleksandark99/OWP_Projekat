@@ -15,6 +15,7 @@ import bioskop.dao.FilmoviDAO;
 import bioskop.dao.UsersDAO;
 import bioskop.model.Film;
 import bioskop.model.Korisnik;
+import bioskop.model.Role;
 
 
 public class KorisnikServlet extends HttpServlet {
@@ -29,8 +30,21 @@ public class KorisnikServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Pogodjen servlet KorisnikServlet");
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		String korisnickoIme = request.getParameter("username");
+
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		System.out.println(Uloga);
+		if (loggedUsername == null  ) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}else if (!korisnickoIme.equals(loggedUsername))
+			if(!Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+
 		try {
-			String korisnickoIme = request.getParameter("username");
 			Korisnik user = UsersDAO.getUser(korisnickoIme);
 			System.out.println("korisnickoIme sa fronta je "+ korisnickoIme);
 			ObjectMapper om = new ObjectMapper();

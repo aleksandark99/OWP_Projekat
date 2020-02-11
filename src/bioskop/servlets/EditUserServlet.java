@@ -28,12 +28,28 @@ public class EditUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, Object> data = new LinkedHashMap<>();
+		
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		String korisnickoIme = request.getParameter("username");
+
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		
+		System.out.println(Uloga);
+		if (loggedUsername == null  ) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}else if (!korisnickoIme.equals(loggedUsername))
+			if(!Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+
 try {
 			
 			
 			String staro = request.getParameter("staro");
 
-			String korisnickoIme = request.getParameter("username");
+//			String korisnickoIme = request.getParameter("username");
 			System.out.println(korisnickoIme+"|||"+staro);
 
 			if(!korisnickoIme.equals(staro) ) {
