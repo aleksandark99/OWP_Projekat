@@ -325,4 +325,14 @@
     <servlet-name>UlogaKorisnikaServlet</servlet-name>
     <url-pattern>/UlogaKorisnikaServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveKartaFilm</display-name>
+    <servlet-name>RemoveKartaFilm</servlet-name>
+    <servlet-class>bioskop.servlets.RemoveKartaFilm</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveKartaFilm</servlet-name>
+    <url-pattern>/RemoveKartaFilm</url-pattern>
+  </servlet-mapping>
 </web-app>

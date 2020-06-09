@@ -26,12 +26,11 @@ public class AddKartaServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-		if (loggedUsername == null) {
-//			response.sendRedirect("./Login.html");
-			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-			return;
-		}
+//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+//		if (loggedUsername == null) {
+//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+//			return;
+//		}
 		
 		
 		try {

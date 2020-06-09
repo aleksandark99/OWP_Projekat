@@ -16,6 +16,7 @@ import bioskop.dao.KarteDAO;
 import bioskop.dao.UsersDAO;
 import bioskop.model.Karta;
 import bioskop.model.Korisnik;
+import bioskop.model.Role;
 
 public class GetKarteProjekcije extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +28,14 @@ public class GetKarteProjekcije extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
+		
 		try {			
 			String id_projekcije = request.getParameter("id_projekcije");
 		List<Karta> karte = KarteDAO.getAll(id_projekcije);

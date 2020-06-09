@@ -22,12 +22,12 @@ public class ZauzetaSedista extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-		if (loggedUsername == null) {
-//			response.sendRedirect("./Login.html");
-			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-			return;
-		}
+//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+//		System.out.println("GLEDAJ OVDEE"+(String) request.getSession().getAttribute("loggedUsername"));
+//		if (loggedUsername == null) {
+//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+//			return;
+//		}
 		try {
 			String id = request.getParameter("id_projekcije");
 			List<String> zauzetaSedista=ProjekcijeDAO.getZauzetaSedista(id);

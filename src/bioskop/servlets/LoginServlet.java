@@ -1,13 +1,16 @@
 package bioskop.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,6 +50,16 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("Uloga", user.getUloga());
 				System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLll");
 				System.out.println(request.getSession().getAttribute("loggedUsername"));
+				
+				ServletContext context = request.getSession( ).getServletContext();
+				
+				HashMap<String,HttpSession> mapa_sesija =(HashMap<String, HttpSession>) context.getAttribute("sesije");
+				
+				mapa_sesija.put(user.getUsername(), request.getSession());
+				
+				
+				
+				
 				ObjectMapper om = new ObjectMapper();
 				response.setContentType("application/json; utf-8");
 //				response.getWriter().write(om.writeValueAsString(user));

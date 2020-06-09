@@ -260,4 +260,24 @@ public class UsersDAO {
 	
 	}
 
+	public static boolean UpdateUloguUsera(String username,String uloga)throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+
+		PreparedStatement pstmt = null;
+		try {
+			String query ="update  users set role=? where username =?";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			
+			pstmt.setString(index++, uloga);
+			pstmt.setString(index++, username);
+
+			System.out.println("update gotov");
+			return pstmt.executeUpdate() == 1;
+
+		}finally {
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		}
+	}
 }

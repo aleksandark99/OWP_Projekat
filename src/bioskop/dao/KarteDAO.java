@@ -16,6 +16,41 @@ import bioskop.model.Sala;
 public class KarteDAO {
 	
 	
+	public static boolean removeKarta(String id) throws Exception{
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		System.out.println("dosli ste na remove");
+		try {
+			conn.setAutoCommit(false); 
+			conn.commit();
+
+			String query = "delete from karte where id=?";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			pstmt.setString(index++, id);
+			pstmt.executeUpdate() ;
+			pstmt.close();
+			conn.commit();
+			System.out.println("remove je done ");
+
+			return true;
+			
+	
+			
+		}finally {
+		try {
+			conn.setAutoCommit(true);} catch (Exception ex1) {ex1.printStackTrace();}
+			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
+			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();} 
+			
+		}
+		
+		
+		
+		
+		
+	}
+	
 	public static int getNextId()throws Exception {
 		Connection conn = ConnectionManager.getConnection();
 		

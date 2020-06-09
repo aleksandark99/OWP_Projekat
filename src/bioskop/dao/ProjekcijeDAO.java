@@ -92,7 +92,6 @@ public class ProjekcijeDAO {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println("dosli ste na projekcijeDAO getAll");
 		System.out.println(rset);
 		try {
 			String query ="select * from projekcije where id = ?";
@@ -441,15 +440,19 @@ public class ProjekcijeDAO {
 //		return true;
 	}
 
-	public static List<Izvestaj> izvestaj()throws Exception{
+	public static List<Izvestaj> izvestaj(String od,String do1)throws Exception{
 		
 		Connection conn = ConnectionManager.getConnection();
 		List<Izvestaj> izvestaji = new ArrayList<Izvestaj>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query ="select movies.id ,movies.naziv ,count(distinct projekcije.id)as brojProjekcija,count( karte.id) as brojKarata ,sum(projekcije.cena) as ukupno from movies left join projekcije on projekcije.id_filma = movies.id left join karte on projekcije.id = karte.id_projekcije group by movies.id;";
+			String query ="select movies.id ,movies.naziv ,count(distinct projekcije.id)as brojProjekcija,count( karte.id) as brojKarata ,sum(projekcije.cena) as ukupno from movies left join projekcije on projekcije.id_filma = movies.id left join karte on projekcije.id = karte.id_projekcije where projekcije.datum> ?and projekcije.datum < ? group by movies.id;";
 			pstmt = conn.prepareStatement(query);
+			int i=1;
+			pstmt.setString(i++,  od );
+			pstmt.setString(i++,  do1 );
+			
 			rset = pstmt.executeQuery();
 			while (rset.next()){
 				
