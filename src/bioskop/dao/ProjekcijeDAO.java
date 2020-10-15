@@ -449,7 +449,7 @@ public class ProjekcijeDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query ="select movies.id ,movies.naziv ,count(distinct projekcije.id)as brojProjekcija,count( karte.id) as brojKarata ,sum(projekcije.cena) as ukupno from movies left join projekcije on projekcije.id_filma = movies.id left join karte on projekcije.id = karte.id_projekcije where projekcije.datum> ?and projekcije.datum < ? group by movies.id;";
+			String query ="select movies.id ,movies.naziv ,count(distinct projekcije.id)as brojProjekcija,count( karte.id) as brojKarata ,sum(projekcije.cena) as ukupno from movies left join projekcije on projekcije.id_filma = movies.id left join karte on projekcije.id = karte.projekcija where projekcije.date> ?and projekcije.date < ? group by movies.id;";
 			pstmt = conn.prepareStatement(query);
 			int i=1;
 			pstmt.setString(i++,  od );

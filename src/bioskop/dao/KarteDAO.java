@@ -79,18 +79,25 @@ public class KarteDAO {
 		
 		Connection conn =ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
+		System.out.println("SSS");
 		try {		String query="insert into karte values(?,?,?,?,?)";
 		pstmt = conn.prepareStatement(query);
 		int index = 1;
 		LocalDateTime date= LocalDateTime.now();
 		String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
 
-		
+		System.out.println(karta.getId());
+		System.out.println(karta.getProjekcija());
+		System.out.println(formattedDate);
+		System.out.println(karta.getSediste());
+		System.out.println(karta.getUser());
+
 		pstmt.setInt(index++,karta.getId());
 		pstmt.setInt(index++,karta.getProjekcija());
+		pstmt.setString(index++,karta.getSediste());
+
       	pstmt.setString(index++, formattedDate);
 		pstmt.setString(index++,karta.getUser());
-		pstmt.setString(index++,karta.getSediste());
 
 		return pstmt.executeUpdate() == 1;
 			
@@ -111,7 +118,7 @@ public class KarteDAO {
 		ResultSet rset = null;
 		List<Karta> karte = new ArrayList<Karta>();
 		try {
-			String query ="select * from karte where id_projekcije=?";
+			String query ="select * from karte where projekcija=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, idP);
 			rset = pstmt.executeQuery();

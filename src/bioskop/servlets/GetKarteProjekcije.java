@@ -29,12 +29,12 @@ public class GetKarteProjekcije extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
-		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
-			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-			return;
-		}
+//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+//		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
+//		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
+//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+//			return;
+//		}
 		
 		try {			
 			String id_projekcije = request.getParameter("id_projekcije");

@@ -26,11 +26,11 @@ public class AddKartaServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-//		if (loggedUsername == null) {
-//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-//			return;
-//		}
+		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
+		if (loggedUsername == null) {
+			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+			return;
+		}
 		
 		
 		try {
@@ -39,10 +39,9 @@ public class AddKartaServlet extends HttpServlet {
 				String[] lSedista=sedista.split("\\,");
 				String username=(String) request.getSession().getAttribute("loggedUsername");
 				System.out.println("DDDDD");
-				System.out.println(request.getSession().getAttribute("loggedUsername"));
-				System.out.println(request.getSession().getAttributeNames());
-				
-				System.out.println("Add karta servlet ==========");
+				System.out.println(username);
+				System.out.println(request.getSession().getAttribute("loggedUsername"));				
+		
 				for (String string : lSedista) {
 					int id =KarteDAO.getNextId();
 
