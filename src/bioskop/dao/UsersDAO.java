@@ -97,7 +97,7 @@ public class UsersDAO {
 			String query= "select * from users where username = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnickoIme);
-			System.out.println(pstmt);
+//			System.out.println(pstmt);
 			
 			
 			rset = pstmt.executeQuery();

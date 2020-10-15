@@ -53,7 +53,6 @@ public class ProjekcijeServlet extends HttpServlet {
 					 Date date3=formatter1.parse(o);  
 					 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 			         String strDate = dateFormat.format(date3); 
-			         System.out.println(strDate+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			         do1=strDate;
 				}catch (Exception e) {
 					// TODO: handle exception
@@ -67,7 +66,6 @@ public class ProjekcijeServlet extends HttpServlet {
 					 Date date3=formatter1.parse(o);  
 					 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 			         String strDate = dateFormat.format(date3); 
-			         System.out.println(strDate+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			         od1=strDate;
 				}catch (Exception e) {
 					// TODO: handle exception
@@ -85,7 +83,7 @@ public class ProjekcijeServlet extends HttpServlet {
 				if(request.getParameter("min") != null) {
 					try {
 					min=Integer.parseInt(request.getParameter("min"));
-					System.out.println(min);
+//					System.out.println(min);
 				}catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -100,9 +98,10 @@ public class ProjekcijeServlet extends HttpServlet {
 				}finally {
 					
 				}
-			System.out.println(od1 +"|||"+do1);
 
+		
 			List<Projekcija> projekcije =ProjekcijeDAO.getProjekcije(movie, od1, do1, sala, tip, min, max);
+		
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 			Map<String, Object> data = new LinkedHashMap<>();

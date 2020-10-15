@@ -26,13 +26,14 @@ public class ProjekcijeDAO {
 		List<Projekcija> projekcije = new ArrayList<Projekcija>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println(movie+"||"+odDate+"||"+doDate+"||"+tip+"||"+sala+"||"+odCena+"||"+DoCena);
+//		System.out.println(movie+"||"+odDate+"||"+doDate+"||"+tip+"||"+sala+"||"+odCena+"||"+DoCena);
 		try {
-			String query ="select * from projekcije where id_filma in(select id from movies where naziv like ?) and id_tipa like ? and datum >? and datum <? and id_sale like ? and cena >= ? and cena <=?";
+			String query ="select * from projekcije where id_filma in(select id from movies where naziv like ?) and id_tipa like ? and date >? and date <? and id_sale like ? and cena >= ? and cena <=?";
 //			String query ="select * from projekcije";
+			
+
 
 			pstmt = conn.prepareStatement(query);
-			System.out.println("sss");
 
 			int i =1;
 			pstmt.setString(i++,"%" + movie +"%"  );
@@ -65,8 +66,7 @@ public class ProjekcijeDAO {
 //				
 				 Projekcija projekcija = new Projekcija(id, film, tipProjekcije, sala1, datum, cenaKarte, user);
 				 projekcije.add(projekcija);
-				 System.out.println("SS");
-				 System.out.println(projekcija);
+//				 System.out.println(projekcija);
 				
 				
 				
@@ -74,9 +74,10 @@ public class ProjekcijeDAO {
 				
 			}
 
+		
 			return projekcije;
 			
-			
+
 			
 			
 		}finally {
@@ -92,12 +93,9 @@ public class ProjekcijeDAO {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println(rset);
 		try {
 			String query ="select * from projekcije where id = ?";
 			pstmt = conn.prepareStatement(query);
-			System.out.println("sss");
-
 			int i =1;
 			pstmt.setString(i++,idProjekcije  );
 
@@ -235,7 +233,7 @@ public class ProjekcijeDAO {
 		ResultSet rset = null;
 		List<Sala> sale = new ArrayList<Sala>();
 		try {
-			String query ="select * from sala where id in (select id_sale from sala_projekcija where id_tip =?)";
+			String query ="select * from sala where id in (select id_sale from sala_projekcija where id_projekcije =?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id_tipa);
 			rset = pstmt.executeQuery();
@@ -356,7 +354,8 @@ public class ProjekcijeDAO {
 		ResultSet rset = null;
 		List<Sediste> sedista = new ArrayList<Sediste>();
 		try {
-			String query ="select * from sedista where id_sale = ?";
+			String query ="select * from sedista where sala = ?";
+			System.out.println("SSSSSSSSSSS:"+ id);
 			pstmt = conn.prepareStatement(query);
 			int i =1;
 			pstmt.setString(i++,id );
@@ -364,10 +363,13 @@ public class ProjekcijeDAO {
 			while (rset.next()){
 				
 				int index = 1;
-				int idSale=rset.getInt(index++);
-				String brSedista =rset.getString(index++);
 				
-				Sediste s =new Sediste(brSedista,Integer.toString(idSale));
+				String idSale=rset.getString(index++);
+				String brSedista =rset.getString(index++);
+//				Sediste s =new Sediste(brSedista,Integer.toString(idSale));
+				Sediste s =new Sediste(idSale,brSedista);
+		
+
 				sedista.add(s);
 		
 				
@@ -388,7 +390,7 @@ public class ProjekcijeDAO {
 		ResultSet rset = null;
 		List<String> zauzetaSedista = new ArrayList<String>();
 		try {
-			String query ="select sediste from karte where id_projekcije=?";
+			String query ="select sediste from karte where projekcija=?";
 			pstmt = conn.prepareStatement(query);
 			int i =1;
 			pstmt.setString(i++,id_projekcije );
@@ -495,7 +497,7 @@ public class ProjekcijeDAO {
 		ResultSet rset = null;
 		int br=0;
 		try {
-			String query ="select count(*) from sedista where id_sale = ?";
+			String query ="select count(*) from sedista where sala = ?";
 			pstmt = conn.prepareStatement(query);
 			int i =1;
 			pstmt.setString(i++,id_sale );
@@ -527,7 +529,7 @@ public static int brojKarataZaSedistaSale (String id_projekcije)throws Exception
 		ResultSet rset = null;
 		int br=0;
 		try {
-			String query ="select count(*) from karte where id_projekcije = ?";
+			String query ="select count(*) from karte where projekcija = ?";
 			pstmt = conn.prepareStatement(query);
 			int i =1;
 			pstmt.setString(i++,id_projekcije );

@@ -26,12 +26,18 @@ public class SlobodnaSedistaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		try {
+			System.out.println("pogodjen slobodna sedista servlet");
 //			String id_sale= request.getParameter("id_sale");
 			String id_projekcije= request.getParameter("id_projekcije");
+			
+			System.out.println(id_projekcije);
+			
 			Projekcija p = ProjekcijeDAO.getProjekcija(id_projekcije);
 			System.out.println(p.getSala().getId());
 
-			int br_sedista=ProjekcijeDAO.brojSedistaSale(Integer.toString(p.getSala().getId()));
+//			int br_sedista=ProjekcijeDAO.brojSedistaSale(Integer.toString(p.getSala().getId()));
+			int br_sedista=ProjekcijeDAO.brojSedistaSale(p.getSala().getNaizv());
+			System.out.println("SSSSSSSS "+p.getSala().getNaizv());
 			int br_zuzetihSedista=ProjekcijeDAO.brojKarataZaSedistaSale(id_projekcije);
 			int brojSlobodnih=br_sedista-br_zuzetihSedista;
 

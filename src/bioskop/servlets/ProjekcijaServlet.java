@@ -36,7 +36,9 @@ public class ProjekcijaServlet extends HttpServlet {
 			String strid = request.getParameter("id");
 			Projekcija projekcija= ProjekcijeDAO.getProjekcija(strid);
 			Sala sala =ProjekcijeDAO.getSala(projekcija.getSala().getId());
-			List<Sediste> sedista = ProjekcijeDAO.getSedista(Integer.toString(sala.getId()));
+//			List<Sediste> sedista = ProjekcijeDAO.getSedista(Integer.toString(sala.getId()));
+			List<Sediste> sedista = ProjekcijeDAO.getSedista(sala.getNaizv());
+
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 				Map<String, Object> data = new LinkedHashMap<>();

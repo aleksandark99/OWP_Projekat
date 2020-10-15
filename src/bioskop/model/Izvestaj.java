@@ -3,9 +3,9 @@ package bioskop.model;
 public class Izvestaj {
 
 	private Film film ;
-	private String brojProjekcija;
-	private String brojKarata;
-	private String ukupnaCena;
+	private String brojProjekcija;// 
+	private String brojKarata;// Treba ici int String stavljen iz inata 
+	private String ukupnaCena;//   
 	public Izvestaj(Film film, String brojProjekcija, String brojKarata, String ukupnaCena) {
 		super();
 		this.film = film;

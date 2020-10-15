@@ -36,7 +36,7 @@ public class SaleServlet extends HttpServlet {
 //				request.setAttribute("data", data);
 				
 				
-				System.out.println(data.get("sale"));
+//				System.out.println(data.get("sale"));
 
 				
 				response.getWriter().write(om.writeValueAsString(data));
