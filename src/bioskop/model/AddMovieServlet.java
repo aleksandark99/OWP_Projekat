@@ -50,6 +50,7 @@ public class AddMovieServlet extends HttpServlet {
 			 if(trajanje.equals("") || trajanje==null)
 				 throw new Exception("trajanje mora postojati");
 			 try {
+				 System.out.println(trajanje);
 				  intTrajanje =Integer.parseInt(trajanje);
 			 }catch (Exception e) {throw new Exception("trajanje mora bit int");}
 			 if(distributer.equals("") || distributer==null)

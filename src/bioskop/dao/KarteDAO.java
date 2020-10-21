@@ -157,7 +157,7 @@ public class KarteDAO {
 		ResultSet rset = null;
 		List<Karta> karte = new ArrayList<Karta>();
 		try {
-			String query ="select * from karte where username_kupca=?";
+			String query = "select * from karte where user=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, usernameK);
 			rset = pstmt.executeQuery();

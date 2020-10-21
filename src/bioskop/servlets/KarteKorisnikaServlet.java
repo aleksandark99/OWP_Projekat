@@ -19,54 +19,44 @@ import bioskop.model.Role;
 public class KarteKorisnikaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public KarteKorisnikaServlet() {
-        super();
-    }
+	public KarteKorisnikaServlet() {
+		super();
+	}
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
 		String korisnickoIme = request.getParameter("username");
 
 		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
-		
+
 		System.out.println(Uloga);
-		if (loggedUsername == null  ) {
+		if (loggedUsername == null) {
 			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
 			return;
-		}else if (!korisnickoIme.equals(loggedUsername))
-			if(!Uloga.equals(Role.ADMIN)) {
-			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-			return;
-		}
-		
-		
-		try {			
+		} else if (!korisnickoIme.equals(loggedUsername))
+			if (!Uloga.equals(Role.ADMIN)) {
+				request.getRequestDispatcher("./LogoutServlet").forward(request, response);
+				return;
+			}
+
+		try {
 			String username = request.getParameter("username");
-		List<Karta> karte = KarteDAO.getAllKorisnik(username);
-
-		ObjectMapper om = new ObjectMapper();
-		response.setContentType("application/json; utf-8");
-
-
-		
-		
-			
+			List<Karta> karte = KarteDAO.getAllKorisnik(username);
+			ObjectMapper om = new ObjectMapper();
+			response.setContentType("application/json; utf-8");
 			Map<String, Object> data = new LinkedHashMap<>();
 			data.put("karte", karte);
 			response.getWriter().write(om.writeValueAsString(data));
+			response.getWriter().close();
 
-			System.out.println(data);
-
-		response.getWriter().close();
-	
-		System.out.println("try izvrsen");
-			
 		} catch (Exception e) {
 			// TODO: handle exception
-		}	}
+		}
+	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
