@@ -22,12 +22,7 @@ public class ZauzetaSedista extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-//		System.out.println("GLEDAJ OVDEE"+(String) request.getSession().getAttribute("loggedUsername"));
-//		if (loggedUsername == null) {
-//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-//			return;
-//		}
+
 		try {
 			String id = request.getParameter("id_projekcije");
 			List<String> zauzetaSedista=ProjekcijeDAO.getZauzetaSedista(id);
@@ -37,12 +32,7 @@ public class ZauzetaSedista extends HttpServlet {
 			data.put("zauzetaSedista", zauzetaSedista);
 			response.getWriter().write(om.writeValueAsString(data));
 			response.getWriter().close();
-			
-			
-			
-			
-			
-			
+		
 		} catch (Exception e) {
 			System.out.println(e);
 		}

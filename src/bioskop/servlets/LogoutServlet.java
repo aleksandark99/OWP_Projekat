@@ -21,14 +21,10 @@ public class LogoutServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-
 		Map<String, Object> data = new LinkedHashMap<>();
 		data.put("status", "unauthenticated");
-
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonData = objectMapper.writeValueAsString(data);
-		System.out.println(jsonData);
-
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);
 		

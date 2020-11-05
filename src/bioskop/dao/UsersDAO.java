@@ -83,7 +83,6 @@ public class UsersDAO {
 			String query = "select * from users where username = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnickoIme);
-//			System.out.println(pstmt);
 
 			rset = pstmt.executeQuery();
 
@@ -131,8 +130,7 @@ public class UsersDAO {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		try {
-			// insert into users values('c','b','USER','2009-12-31 11:59:59') // username
-			// password role date
+
 			String query = "insert into users values(?,?,?,?)";
 
 			pstmt = conn.prepareStatement(query);
@@ -141,25 +139,11 @@ public class UsersDAO {
 			pstmt.setString(index++, korisnik.getPassword());
 			pstmt.setString(index++, korisnik.getUloga().toString());
 
-//			DateFormat dateFormat = new SimpleDateFormat("yyyy-m-dd hh:mm:ss");  
-			// DateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-//			DateFormat dateFormat = new SimpleDateFormat("YYYY-dd-mm hh:mm:ss");  
-//			Date date = korisnik.getDatumRegistracije();
-//			System.out.println(date);
-//			Calendar calendar = Calendar.getInstance();
-//			calendar.setTime(date);
 			LocalDateTime date = LocalDateTime.now();
-//			date=date.plusYears(1); nije 2021 godina nego 2020 readi sve kako treba
+//			date=date.plusYears(1); nije 2021 godina nego 2020 radi sve kako treba
 //			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
 			String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-dd-MM HH:mm:ss"));
-
-			// String strDate=dateFormat.format(date);
-			System.out.println("Datum u Dao" + formattedDate);
 			pstmt.setString(index++, formattedDate);
-
-//			pstmt.setString(index++, korisnik.getDatumRegistracije().toString());
-
-			System.out.println(pstmt);
 			return pstmt.executeUpdate() == 1;
 
 		} finally {
@@ -184,7 +168,6 @@ public class UsersDAO {
 
 		PreparedStatement pstmt = null;
 		try {
-			System.out.println("update dao");
 			String query = "update  users set username =? ,password=? where username =?";
 			pstmt = conn.prepareStatement(query);
 			int index = 1;
@@ -192,8 +175,6 @@ public class UsersDAO {
 			pstmt.setString(index++, korisnik.getUsername());
 			pstmt.setString(index++, korisnik.getPassword());
 			pstmt.setString(index++, staro);
-
-			System.out.println("update gotov");
 			return pstmt.executeUpdate() == 1;
 
 		} finally {
@@ -223,8 +204,6 @@ public class UsersDAO {
 			pstmt.setString(1, korisnickoIme);
 			pstmt.setString(2, password1);
 
-			System.out.println(pstmt);
-
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -238,11 +217,8 @@ public class UsersDAO {
 				SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-dd-MM");
 
 				Date datumRegistracije = formatter1.parse(date);
-				System.out.println(datumRegistracije);
 
 				Korisnik user = new Korisnik(username, password, datumRegistracije, uloga);
-
-				System.out.println(user);
 
 				return user;
 
@@ -282,7 +258,6 @@ public class UsersDAO {
 			pstmt.setString(index++, uloga);
 			pstmt.setString(index++, username);
 
-			System.out.println("update gotov");
 			return pstmt.executeUpdate() == 1;
 
 		} finally {

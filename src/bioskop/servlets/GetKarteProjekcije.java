@@ -20,50 +20,37 @@ import bioskop.model.Role;
 
 public class GetKarteProjekcije extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public GetKarteProjekcije() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public GetKarteProjekcije() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
-//		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
-//		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {
-//			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-//			return;
-//		}
-		
-		try {			
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+
+
+		try {
 			String id_projekcije = request.getParameter("id_projekcije");
-		List<Karta> karte = KarteDAO.getAll(id_projekcije);
+			List<Karta> karte = KarteDAO.getAll(id_projekcije);
 
-		ObjectMapper om = new ObjectMapper();
-		response.setContentType("application/json; utf-8");
+			ObjectMapper om = new ObjectMapper();
+			response.setContentType("application/json; utf-8");
 
-
-		
-		
-			
 			Map<String, Object> data = new LinkedHashMap<>();
 			data.put("karte", karte);
 			response.getWriter().write(om.writeValueAsString(data));
+			response.getWriter().close();
 
-			System.out.println(data);
-
-		response.getWriter().close();
-	
-		System.out.println("try izvrsen");
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

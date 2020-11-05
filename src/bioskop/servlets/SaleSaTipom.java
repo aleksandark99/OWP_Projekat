@@ -21,42 +21,34 @@ import bioskop.model.Sala;
  */
 public class SaleSaTipom extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public SaleSaTipom() {
-        super();
-    }
 
+	public SaleSaTipom() {
+		super();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Sala> sale = new ArrayList<Sala>();
 		try {
-			String s=request.getParameter("id_tipa");
+			String s = request.getParameter("id_tipa");
 			sale = ProjekcijeDAO.getSaleSaTipom(s);
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
-				
-				Map<String, Object> data = new LinkedHashMap<>();
-				data.put("sale", sale);
-				
-				
-				System.out.println(data.get("sale"));
 
-				
-				response.getWriter().write(om.writeValueAsString(sale));
-				response.getWriter().close();
+			Map<String, Object> data = new LinkedHashMap<>();
+			data.put("sale", sale);
+
+			response.getWriter().write(om.writeValueAsString(sale));
+			response.getWriter().close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-	
 
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

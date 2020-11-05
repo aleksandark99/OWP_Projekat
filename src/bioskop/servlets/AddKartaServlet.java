@@ -16,52 +16,43 @@ import bioskop.dao.KarteDAO;
 import bioskop.model.Karta;
 
 public class AddKartaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;    
+	private static final long serialVersionUID = 1L;
 
-    public AddKartaServlet() {
-        super();
-    }
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AddKartaServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
 		if (loggedUsername == null) {
 			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
 			return;
 		}
-		
-		
+
 		try {
-				String id_projekcije=request.getParameter("id_projekcije");
-				String sedista = request.getParameter("sedista");
-				String[] lSedista=sedista.split("\\,");
-				String username=(String) request.getSession().getAttribute("loggedUsername");
-				System.out.println("DDDDD");
-				System.out.println(username);
-				System.out.println(request.getSession().getAttribute("loggedUsername"));				
-		
-				for (String string : lSedista) {
-					int id =KarteDAO.getNextId();
+			String id_projekcije = request.getParameter("id_projekcije");
+			String sedista = request.getParameter("sedista");
+			String[] lSedista = sedista.split("\\,");
+			String username = (String) request.getSession().getAttribute("loggedUsername");
 
-					Karta karta = new Karta(id, Integer.parseInt(id_projekcije), string, new Date(), username);
-					KarteDAO.addKarta(karta);
+			for (String string : lSedista) {
+				int id = KarteDAO.getNextId();
 
-				}
-				 request.getRequestDispatcher("./SuccessServlet").forward(request, response);
+				Karta karta = new Karta(id, Integer.parseInt(id_projekcije), string, new Date(), username);
+				KarteDAO.addKarta(karta);
 
-				System.out.println(id_projekcije);	
-				System.out.println(username);
-
-
-			}catch (Exception e) {
-				System.out.println(e);
 			}
-		
-		
-		
-		
+			request.getRequestDispatcher("./SuccessServlet").forward(request, response);
+
+		} catch (Exception e) {
+		}
+
 	}
 
 }

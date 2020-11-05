@@ -83,9 +83,7 @@ public class ProjekcijeServlet extends HttpServlet {
 				if(request.getParameter("min") != null) {
 					try {
 					min=Integer.parseInt(request.getParameter("min"));
-//					System.out.println(min);
 				}catch (Exception e) {
-					// TODO: handle exception
 				}
 					}
 				if(request.getParameter("max") != null) {

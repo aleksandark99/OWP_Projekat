@@ -31,12 +31,10 @@ public class ProjekcijaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Pogodjen servlet ProjekcijaServlet");
 		try {
 			String strid = request.getParameter("id");
 			Projekcija projekcija= ProjekcijeDAO.getProjekcija(strid);
 			Sala sala =ProjekcijeDAO.getSala(projekcija.getSala().getId());
-//			List<Sediste> sedista = ProjekcijeDAO.getSedista(Integer.toString(sala.getId()));
 			List<Sediste> sedista = ProjekcijeDAO.getSedista(sala.getNaizv());
 
 			ObjectMapper om = new ObjectMapper();

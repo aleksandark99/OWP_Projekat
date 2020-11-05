@@ -33,11 +33,6 @@ public class SaleServlet extends HttpServlet {
 				
 				Map<String, Object> data = new LinkedHashMap<>();
 				data.put("sale", sale);
-//				request.setAttribute("data", data);
-				
-				
-//				System.out.println(data.get("sale"));
-
 				
 				response.getWriter().write(om.writeValueAsString(data));
 				response.getWriter().close();

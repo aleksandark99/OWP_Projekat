@@ -41,8 +41,8 @@ public class RemoveFilmServlet extends HttpServlet {
 
 		
 	}catch (Exception e) {
-System.out.println(e);	
-request.getRequestDispatcher("./FailureServlet").forward(request, response);
+		System.out.println(e);
+		request.getRequestDispatcher("./FailureServlet").forward(request, response);
 	}	
 	}
 

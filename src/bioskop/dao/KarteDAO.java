@@ -14,144 +14,165 @@ import bioskop.model.Karta;
 import bioskop.model.Sala;
 
 public class KarteDAO {
-	
-	
-	public static boolean removeKarta(String id) throws Exception{
+
+	public static boolean removeKarta(String id) throws Exception {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
-		System.out.println("dosli ste na remove");
 		try {
-			conn.setAutoCommit(false); 
+			conn.setAutoCommit(false);
 			conn.commit();
 
 			String query = "delete from karte where id=?";
 			pstmt = conn.prepareStatement(query);
 			int index = 1;
 			pstmt.setString(index++, id);
-			pstmt.executeUpdate() ;
+			pstmt.executeUpdate();
 			pstmt.close();
 			conn.commit();
-			System.out.println("remove je done ");
 
 			return true;
-			
-	
-			
-		}finally {
-		try {
-			conn.setAutoCommit(true);} catch (Exception ex1) {ex1.printStackTrace();}
-			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();} 
-			
+
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				pstmt.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+
 		}
-		
-		
-		
-		
-		
 	}
-	
-	public static int getNextId()throws Exception {
+
+	public static int getNextId() throws Exception {
 		Connection conn = ConnectionManager.getConnection();
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query= "Select max(id) from karte";
+			String query = "Select max(id) from karte";
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
-			if (rset.next()){
+			if (rset.next()) {
 				int index = 1;
-				int id=rset.getInt(index++);
-				return id+1;
+				int id = rset.getInt(index++);
+				return id + 1;
 
 			}
-		}finally {
-			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		} finally {
+			try {
+				pstmt.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
 		}
 		return 0;
 
 	}
-	
-	public static boolean addKarta(Karta karta)throws Exception{
-		
-		Connection conn =ConnectionManager.getConnection();
+
+	public static boolean addKarta(Karta karta) throws Exception {
+
+		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
-		System.out.println("SSS");
-		try {		String query="insert into karte values(?,?,?,?,?)";
-		pstmt = conn.prepareStatement(query);
-		int index = 1;
-		LocalDateTime date= LocalDateTime.now();
-		String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
+		try {
+			String query = "insert into karte values(?,?,?,?,?)";
+			pstmt = conn.prepareStatement(query);
+			int index = 1;
+			LocalDateTime date = LocalDateTime.now();
+			String formattedDate = date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
 
-		System.out.println(karta.getId());
-		System.out.println(karta.getProjekcija());
-		System.out.println(formattedDate);
-		System.out.println(karta.getSediste());
-		System.out.println(karta.getUser());
+			pstmt.setInt(index++, karta.getId());
+			pstmt.setInt(index++, karta.getProjekcija());
+			pstmt.setString(index++, karta.getSediste());
 
-		pstmt.setInt(index++,karta.getId());
-		pstmt.setInt(index++,karta.getProjekcija());
-		pstmt.setString(index++,karta.getSediste());
+			pstmt.setString(index++, formattedDate);
+			pstmt.setString(index++, karta.getUser());
 
-      	pstmt.setString(index++, formattedDate);
-		pstmt.setString(index++,karta.getUser());
+			return pstmt.executeUpdate() == 1;
 
-		return pstmt.executeUpdate() == 1;
-			
-		}finally {
-	
-			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		} finally {
+
+			try {
+				pstmt.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
 		}
-		
-		
-		
-		
+
 	}
 
-	public static List<Karta> getAll(String idP)throws Exception{
+	public static List<Karta> getAll(String idP) throws Exception {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Karta> karte = new ArrayList<Karta>();
 		try {
-			String query ="select * from karte where projekcija=?";
+			String query = "select * from karte where projekcija=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, idP);
 			rset = pstmt.executeQuery();
-			while (rset.next()){
-				int index=1;
-				
-				 int id = rset.getInt(index++);
-				 int id_projekcije = rset.getInt(index++);
+			while (rset.next()) {
+				int index = 1;
 
-				 String date =rset.getString(index++);
-				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
-				 Date datum =formatter1.parse(date);
-				 
-				 String username =rset.getString(index++);
-				 String sediste =rset.getString(index++);
-				 Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
-				 karte.add(karta);
+				int id = rset.getInt(index++);
+				int id_projekcije = rset.getInt(index++);
+
+				String date = rset.getString(index++);
+				SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+				Date datum = formatter1.parse(date);
+
+				String username = rset.getString(index++);
+				String sediste = rset.getString(index++);
+				Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
+				karte.add(karta);
 
 			}
-		
 
-			
-			
 			return karte;
 
-		}finally {
-			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		} finally {
+			try {
+				pstmt.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
 		}
 	}
 
-	public static List<Karta> getAllKorisnik(String usernameK)throws Exception{
+	public static List<Karta> getAllKorisnik(String usernameK) throws Exception {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -161,32 +182,47 @@ public class KarteDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, usernameK);
 			rset = pstmt.executeQuery();
-			while (rset.next()){
-				int index=1;
-				
-				 int id = rset.getInt(index++);
-				 int id_projekcije = rset.getInt(index++);
+			while (rset.next()) {
 
-				 String date =rset.getString(index++);
-				 SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");  
-				 Date datum =formatter1.parse(date);
-				 
-				 String username =rset.getString(index++);
-				 String sediste =rset.getString(index++);
-				 Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
-				 karte.add(karta);
+				int index = 1;
+
+				int id = rset.getInt(index++);
+				int id_projekcije = rset.getInt(index++);
+
+				String sediste = rset.getString(index++);
+
+				String date = rset.getString(index++);
+				SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+				Date datum = formatter1.parse(date);
+
+				String username = rset.getString(index++);
+				Karta karta = new Karta(id, id_projekcije, sediste, datum, username);
+
+				karte.add(karta);
 
 			}
-		
 
-			
-			
 			return karte;
 
-		}finally {
-			try {pstmt.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {rset.close();} catch (Exception ex1) {ex1.printStackTrace();}
-			try {conn.close();} catch (Exception ex1) {ex1.printStackTrace();}
+		} catch (Exception e) {
+			System.out.println(e);
+			return karte;
+		} finally {
+			try {
+				pstmt.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				rset.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (Exception ex1) {
+				ex1.printStackTrace();
+			}
 		}
 	}
 }

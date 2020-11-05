@@ -36,7 +36,6 @@ public class RemoveKartaFilm extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("dobrodosli na remove krata id");
 		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
 		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
 		if (loggedUsername == null || !Uloga.equals(Role.ADMIN)) {

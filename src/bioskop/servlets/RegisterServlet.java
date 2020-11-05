@@ -37,7 +37,6 @@ public class RegisterServlet extends HttpServlet {
 			
 			
 			String korisnickoIme = request.getParameter("username");
-			System.out.println(request.getParameter("username"));
 			if(UsersDAO.getUser(korisnickoIme) !=null) {
 				throw new Exception("Korisnicko ime vec postoji!");
 			}
@@ -48,13 +47,7 @@ public class RegisterServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			if ("".equals(password) || password ==null)
 				throw new Exception("Lozinka je prazna!");
-//            Date datumRegistracije = Calendar.getInstance().getTime();  
-			 Date datumRegistracije = new Date();
-				
-            System.out.println(datumRegistracije);
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-//            String strDate = dateFormat.format(date);  		
-            
+			Date datumRegistracije = new Date();				            
 			Korisnik korisnik = new Korisnik(korisnickoIme, password, datumRegistracije, Role.USER);
 			
 			UsersDAO.addUser(korisnik);

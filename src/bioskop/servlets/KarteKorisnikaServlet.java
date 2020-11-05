@@ -27,22 +27,12 @@ public class KarteKorisnikaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String loggedUsername = (String) request.getSession().getAttribute("loggedUsername");
 		String korisnickoIme = request.getParameter("username");
-
 		Role Uloga = (Role) request.getSession().getAttribute("Uloga");
-
-		System.out.println(Uloga);
-		if (loggedUsername == null) {
-			request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-			return;
-		} else if (!korisnickoIme.equals(loggedUsername))
-			if (!Uloga.equals(Role.ADMIN)) {
-				request.getRequestDispatcher("./LogoutServlet").forward(request, response);
-				return;
-			}
 
 		try {
 			String username = request.getParameter("username");
 			List<Karta> karte = KarteDAO.getAllKorisnik(username);
+
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json; utf-8");
 			Map<String, Object> data = new LinkedHashMap<>();
